@@ -10,7 +10,7 @@ import { TypographyH4 } from './ui/typography';
 
 const Header = () => {
   const [isMobile, setIsMobile] = useState(false);
-  const user = true;
+  const user = false;
 
   useEffect(() => {
     const checkMobile = () => {

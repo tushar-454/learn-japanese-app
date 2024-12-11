@@ -1,4 +1,5 @@
 import Root from '@/layouts/Root';
+import Login from '@/pages/Login';
 import { createBrowserRouter } from 'react-router-dom';
 
 const Routes = createBrowserRouter([
@@ -11,6 +12,10 @@ const Routes = createBrowserRouter([
         element: <h1>Home</h1>,
       },
     ],
+  },
+  {
+    path: '/login',
+    element: <Login />,
   },
 ]);
 
