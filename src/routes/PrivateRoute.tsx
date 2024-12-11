@@ -15,6 +15,7 @@ const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
     toast({
       title: 'You are not logged in',
       description: 'Please login to access the page',
+      variant: 'destructive',
     });
     return;
   }

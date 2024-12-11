@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { useLoginMutation } from '@/api/authSlice';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -23,13 +24,14 @@ const FormSchema = z.object({
     .regex(/gmail\.com$/, {
       message: 'Only gmail.com email addresses are allowed.',
     }),
-  password: z.string().min(8, {
-    message: 'Password must be at least 8 characters.',
+  password: z.string().min(6, {
+    message: 'Password must be at least 6 characters.',
   }),
 });
 
 const LoginForm = () => {
   const { toast } = useToast();
+  const [login] = useLoginMutation();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -39,16 +41,30 @@ const LoginForm = () => {
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
-          <code className='text-white'>{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    const { email, password } = data;
+    const res = await login({ email, password });
+
+    if (res.error) {
+      const errorMessage =
+        'data' in res.error &&
+        typeof res.error.data === 'object' &&
+        res.error.data !== null &&
+        'error' in res.error.data
+          ? (res.error.data as { error: string }).error
+          : 'An error occurred';
+      toast({
+        title: errorMessage,
+        description: 'Please try again.',
+        variant: 'destructive',
+      });
+    }
+    if (res.data.status === 200) {
+      toast({
+        title: 'Login successful.',
+        description: 'Welcome back. ' + res.data.data.name,
+      });
+    }
   }
 
   return (
