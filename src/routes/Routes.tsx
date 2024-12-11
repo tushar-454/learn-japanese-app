@@ -2,11 +2,16 @@ import Root from '@/layouts/Root';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
 import { createBrowserRouter } from 'react-router-dom';
+import PrivateRoute from './PrivateRoute';
 
 const Routes = createBrowserRouter([
   {
     path: '/',
-    element: <Root />,
+    element: (
+      <PrivateRoute>
+        <Root />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: '/',

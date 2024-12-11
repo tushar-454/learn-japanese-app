@@ -5,6 +5,9 @@
 @tailwind utilities;
 
 /* Custom CSS */
+html {
+  scroll-behavior: smooth !important;
+}
 body {
   font-family: 'Lexend', sans-serif !important;
 }

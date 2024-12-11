@@ -1,11 +1,15 @@
 import assets from '@/assets/assets';
 import LoginForm from '@/components/LoginForm';
 import { TypographyH4, TypographyP } from '@/components/ui/typography';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
-    <main className='mt-20 flex justify-center bg-[#D8F8E7]/10'>
+    <main className='my-20 flex justify-center bg-[#D8F8E7]/10'>
       {/* wrapper  */}
       <div className='w-[300px]'>
         {/* logo & title  */}
