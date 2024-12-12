@@ -7,6 +7,13 @@ const authApi = createApi({
   }),
 
   endpoints: (builder) => ({
+    register: builder.mutation({
+      query: ({ name, email, password, photo }) => ({
+        url: '/register',
+        method: 'POST',
+        body: { name, email, password, photo },
+      }),
+    }),
     login: builder.mutation({
       query: ({ email, password }) => ({
         url: '/login',
@@ -14,8 +21,18 @@ const authApi = createApi({
         body: { email, password },
       }),
     }),
+    token: builder.query({
+      query: () => '/token',
+    }),
+    logout: builder.mutation({
+      query: () => ({
+        url: '/logout',
+        method: 'POST',
+        body: {},
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const { useRegisterMutation, useLoginMutation, useTokenQuery, useLogoutMutation } = authApi;
 export default authApi;

@@ -1,6 +1,8 @@
 import assets from '@/assets/assets';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { RootState } from '@/store/store';
 import { SlMenu } from 'react-icons/sl';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AccountButtons from './AccountButtons';
 import Nav from './Nav';
@@ -9,11 +11,11 @@ import { TypographyH4 } from './ui/typography';
 // import { Button } from './ui/button';
 
 interface MobileNavProps {
-  user: boolean;
   isMobile: boolean;
 }
 
-const MobileNav = ({ user, isMobile }: MobileNavProps) => {
+const MobileNav = ({ isMobile }: MobileNavProps) => {
+  const user = useSelector<RootState>((state) => state.user.user) as unknown as React.ReactNode;
   return (
     <Sheet>
       <SheetTrigger>

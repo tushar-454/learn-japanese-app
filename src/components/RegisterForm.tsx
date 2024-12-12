@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { useRegisterMutation } from '@/api/authSlice';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -14,6 +15,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PhotoUpload from './PhotoUpload';
 
 const FormSchema = z.object({
@@ -37,6 +39,8 @@ const RegisterForm = () => {
   const [photo, setPhoto] = useState<string | ''>('');
   const [error, setError] = useState<string | ''>('');
   const { toast } = useToast();
+  const [register] = useRegisterMutation();
+  const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -47,16 +51,36 @@ const RegisterForm = () => {
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
     if (!photo || photo === '') {
       setError('Please upload a photo');
       return;
     }
-    console.log({ ...data, photo });
-    toast({
-      title: 'Account created.',
-      description: 'We have created your account. Login now.',
-    });
+
+    const { name, email, password } = data;
+    const res = await register({ name, email, password, photo });
+    if (res.error) {
+      console.log('error');
+      const errorMessage =
+        'data' in res.error &&
+        typeof res.error.data === 'object' &&
+        res.error.data !== null &&
+        'error' in res.error.data
+          ? (res.error.data as { error: string }).error
+          : 'An error occurred';
+      toast({
+        title: errorMessage,
+        description: 'Please try again.',
+        variant: 'destructive',
+      });
+    }
+    if (res.data.status === 201) {
+      toast({
+        title: 'Account created.',
+        description: 'We have created your account. Login now.',
+      });
+      navigate('/login');
+    }
   }
 
   return (

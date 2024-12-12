@@ -1,5 +1,7 @@
 import assets from '@/assets/assets';
+import { RootState } from '@/store/store';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AccountButtons from './AccountButtons';
 import MobileNav from './MobileNav';
@@ -10,7 +12,7 @@ import { TypographyH4 } from './ui/typography';
 
 const Header = () => {
   const [isMobile, setIsMobile] = useState(false);
-  const user = false;
+  const user = useSelector<RootState>((state) => state.user.user) as unknown as React.ReactNode;
 
   useEffect(() => {
     const checkMobile = () => {
@@ -56,7 +58,7 @@ const Header = () => {
             </>
           )}
           {/* mobile header content */}
-          {isMobile && <MobileNav user={user} isMobile={isMobile} />}
+          {isMobile && <MobileNav isMobile={isMobile} />}
         </div>
       </Container>
     </header>

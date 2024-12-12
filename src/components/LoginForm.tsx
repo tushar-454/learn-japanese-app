@@ -14,6 +14,10 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
+import { setLocalStorage } from '@/lib/utils';
+import { storeUser } from '@/store/slice/authSlice';
+import { AppDispatch } from '@/store/store';
+import { useDispatch } from 'react-redux';
 
 const FormSchema = z.object({
   email: z
@@ -32,6 +36,7 @@ const FormSchema = z.object({
 const LoginForm = () => {
   const { toast } = useToast();
   const [login] = useLoginMutation();
+  const dispatch = useDispatch<AppDispatch>();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -64,6 +69,9 @@ const LoginForm = () => {
         title: 'Login successful.',
         description: 'Welcome back. ' + res.data.data.name,
       });
+      dispatch(storeUser(res.data.data));
+      setLocalStorage('user', JSON.stringify(res.data.data));
+      window.location.href = window.location.origin;
     }
   }
 
