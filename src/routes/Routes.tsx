@@ -5,6 +5,7 @@ import Lessons from '@/pages/Lessons';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
 import Tutorials from '@/pages/Tutorials';
+import Users from '@/pages/Users';
 import Vocabulary from '@/pages/Vocabulary';
 import { createBrowserRouter } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
@@ -68,7 +69,7 @@ const Routes = createBrowserRouter([
     children: [
       {
         path: 'users',
-        element: <div>Users</div>,
+        element: <Users />,
       },
     ],
   },

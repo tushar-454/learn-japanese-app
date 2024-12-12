@@ -1,6 +1,7 @@
 import authApi from '@/api/authSlice';
 import lessonApi from '@/api/lessonSlice';
 import tutorialApi from '@/api/tutorialSlice';
+import userApi from '@/api/userSlice';
 import vocabularyApi from '@/api/vocabularySlice';
 import userReducer from '@/store/slice/authSlice';
 import { configureStore } from '@reduxjs/toolkit';
@@ -12,13 +13,15 @@ const store = configureStore({
     [lessonApi.reducerPath]: lessonApi.reducer,
     [vocabularyApi.reducerPath]: vocabularyApi.reducer,
     [tutorialApi.reducerPath]: tutorialApi.reducer,
+    [userApi.reducerPath]: userApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(authApi.middleware)
       .concat(lessonApi.middleware)
       .concat(vocabularyApi.middleware)
-      .concat(tutorialApi.middleware),
+      .concat(tutorialApi.middleware)
+      .concat(userApi.middleware),
 });
 
 export default store;

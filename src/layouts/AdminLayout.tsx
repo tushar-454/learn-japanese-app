@@ -104,7 +104,7 @@ const AdminLayout = () => {
           <Profile isMobile={true} />
         </SidebarFooter>
       </Sidebar>
-      <main>
+      <main className='flex-grow overflow-auto'>
         <SidebarTrigger />
         <Outlet />
       </main>
