@@ -16,8 +16,15 @@ const userSlice = createApi({
         method: 'DELETE',
       }),
     }),
+    updateUser: builder.mutation({
+      query: ({ id, role }) => ({
+        url: `/users/${id}`,
+        method: 'PUT',
+        body: { role },
+      }),
+    }),
   }),
 });
 
-export const { useUsersQuery, useDeleteUserMutation } = userSlice;
+export const { useUsersQuery, useDeleteUserMutation, useUpdateUserMutation } = userSlice;
 export default userSlice;

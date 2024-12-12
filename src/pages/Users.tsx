@@ -7,7 +7,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
-import { useDeleteUserMutation, useUsersQuery } from '@/api/userSlice';
+import { useDeleteUserMutation, useUpdateUserMutation, useUsersQuery } from '@/api/userSlice';
 import Loading from '@/components/shared/Loading';
 import { Button } from '@/components/ui/button';
 import {
@@ -41,6 +41,7 @@ const Users = () => {
   const { data: user, isLoading, isError, refetch } = useUsersQuery({});
   const users = user?.data;
   const [deleteUser] = useDeleteUserMutation();
+  const [updateUser] = useUpdateUserMutation();
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
 
@@ -51,6 +52,16 @@ const Users = () => {
         title: 'User deleted successfully',
       });
       setOpen(false);
+      refetch();
+    }
+  };
+
+  const handleUpdateUser = async (role: string, id: string) => {
+    const { data } = await updateUser({ id, role });
+    if (data.status === 200) {
+      toast({
+        title: 'User Update successfully',
+      });
       refetch();
     }
   };
@@ -88,19 +99,19 @@ const Users = () => {
                   <TableCell className='font-medium'>{user.name}</TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell className='text-end'>
-                    <Select>
+                    <Select onValueChange={(e) => handleUpdateUser(e, user._id)}>
                       <SelectTrigger className='w-[180px]'>
                         <SelectValue placeholder={user.role.toLocaleUpperCase()} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value='admin'>Admin</SelectItem>
-                        <SelectItem value='user'>User</SelectItem>
+                        <SelectItem value='admin'>ADMIN</SelectItem>
+                        <SelectItem value='user'>USER</SelectItem>
                       </SelectContent>
                     </Select>
                   </TableCell>
                   <TableCell>
                     <span className='flex items-center gap-2'>
-                      <Button variant={'secondary'}>Update</Button>
+                      {/* <Button variant={'secondary'}>Update</Button> */}
                       {/* delete dialog  */}
                       <Dialog open={open} onOpenChange={setOpen}>
                         <DialogTrigger>
