@@ -48,6 +48,7 @@ const AdminLessons = () => {
   const [openUpdate, setOpenUpdate] = useState(false);
   const [lessonName, setLessonName] = useState('');
   const [lessonNumber, setLessonNumber] = useState('');
+  const [selectedId, setSelectedId] = useState('');
 
   const lessons = data?.data;
 
@@ -80,7 +81,7 @@ const AdminLessons = () => {
       lesson_number: +lessonNumber,
       lesson_name: lessonName,
     });
-    if (data.status === 200) {
+    if (data?.status === 200) {
       toast({
         title: 'User Update successfully',
       });
@@ -144,7 +145,9 @@ const AdminLessons = () => {
                         }}
                       >
                         <DialogTrigger>
-                          <Button variant={'secondary'}>Update</Button>
+                          <Button variant={'secondary'} onClick={() => setSelectedId(lesson._id)}>
+                            Update
+                          </Button>
                         </DialogTrigger>
                         <DialogContent>
                           <DialogHeader>
@@ -172,7 +175,7 @@ const AdminLessons = () => {
                           </DialogHeader>
                           <Button
                             variant={'destructive'}
-                            onClick={() => handleUpdateLesson(lesson._id)}
+                            onClick={() => handleUpdateLesson(selectedId)}
                           >
                             Update
                           </Button>
@@ -181,7 +184,9 @@ const AdminLessons = () => {
                       {/* delete dialog  */}
                       <Dialog open={open} onOpenChange={setOpen}>
                         <DialogTrigger>
-                          <Button variant={'destructive'}>Delete</Button>
+                          <Button variant={'destructive'} onClick={() => setSelectedId(lesson._id)}>
+                            Delete
+                          </Button>
                         </DialogTrigger>
                         <DialogContent>
                           <DialogHeader>
@@ -193,7 +198,7 @@ const AdminLessons = () => {
                           </DialogHeader>
                           <Button
                             variant={'destructive'}
-                            onClick={() => handleDeleteLesson(lesson._id)}
+                            onClick={() => handleDeleteLesson(selectedId)}
                           >
                             Yes, delete
                           </Button>
