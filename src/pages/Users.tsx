@@ -1,4 +1,13 @@
-import { useUsersQuery } from '@/api/userSlice';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+
+import { useDeleteUserMutation, useUsersQuery } from '@/api/userSlice';
 import Loading from '@/components/shared/Loading';
 import { Button } from '@/components/ui/button';
 import {
@@ -17,6 +26,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { TypographyH3 } from '@/components/ui/typography';
+import { useToast } from '@/hooks/use-toast';
+import { useState } from 'react';
 
 type UserType = {
   _id: string;
@@ -27,8 +38,22 @@ type UserType = {
 };
 
 const Users = () => {
-  const { data: user, isLoading, isError } = useUsersQuery({});
+  const { data: user, isLoading, isError, refetch } = useUsersQuery({});
   const users = user?.data;
+  const [deleteUser] = useDeleteUserMutation();
+  const { toast } = useToast();
+  const [open, setOpen] = useState(false);
+
+  const handleDeleteUser = async (id: string) => {
+    const { data } = await deleteUser(id);
+    if (data.status === 200) {
+      toast({
+        title: 'User deleted successfully',
+      });
+      setOpen(false);
+      refetch();
+    }
+  };
 
   return (
     <div className='px-5 py-5 md:px-10'>
@@ -76,7 +101,27 @@ const Users = () => {
                   <TableCell>
                     <span className='flex items-center gap-2'>
                       <Button variant={'secondary'}>Update</Button>
-                      <Button variant={'destructive'}>Delete</Button>
+                      {/* delete dialog  */}
+                      <Dialog open={open} onOpenChange={setOpen}>
+                        <DialogTrigger>
+                          <Button variant={'destructive'}>Delete</Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle>Are you absolutely sure?</DialogTitle>
+                            <DialogDescription>
+                              This action cannot be undone. This will permanently delete data from
+                              our servers.
+                            </DialogDescription>
+                          </DialogHeader>
+                          <Button
+                            variant={'destructive'}
+                            onClick={() => handleDeleteUser(user._id)}
+                          >
+                            Yes, delete
+                          </Button>
+                        </DialogContent>
+                      </Dialog>
                     </span>
                   </TableCell>
                 </TableRow>
