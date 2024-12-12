@@ -1,6 +1,8 @@
 import { TypographyH1 } from '@/components/ui/typography';
 import AdminLayout from '@/layouts/AdminLayout';
 import Root from '@/layouts/Root';
+import AdminAddLessons from '@/pages/AdminAddLessons';
+import AdminLessons from '@/pages/AdminLessons';
 import Lessons from '@/pages/Lessons';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
@@ -70,6 +72,14 @@ const Routes = createBrowserRouter([
       {
         path: 'users',
         element: <Users />,
+      },
+      {
+        path: 'lessons',
+        element: <AdminLessons />,
+      },
+      {
+        path: 'add-lessons',
+        element: <AdminAddLessons />,
       },
     ],
   },
