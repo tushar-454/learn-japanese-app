@@ -1,4 +1,5 @@
 import { TypographyH1 } from '@/components/ui/typography';
+import AdminLayout from '@/layouts/AdminLayout';
 import Root from '@/layouts/Root';
 import Lessons from '@/pages/Lessons';
 import Login from '@/pages/Login';
@@ -56,6 +57,20 @@ const Routes = createBrowserRouter([
         <Register />,
       </PublicRoutes>
     ),
+  },
+  {
+    path: '/dashboard',
+    element: (
+      <PrivateRoute>
+        <AdminLayout />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: 'users',
+        element: <div>Users</div>,
+      },
+    ],
   },
 ]);
 
