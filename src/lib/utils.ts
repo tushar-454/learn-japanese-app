@@ -30,3 +30,9 @@ export const uploadImage = async (image: File) => {
     }
   }
 };
+
+export const pronounceWord = (word: string) => {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = 'ja-JP'; // Japanese
+  window.speechSynthesis.speak(utterance);
+};

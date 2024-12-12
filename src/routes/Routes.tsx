@@ -2,6 +2,7 @@ import Root from '@/layouts/Root';
 import Lessons from '@/pages/Lessons';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
+import Vocabulary from '@/pages/Vocabulary';
 import { createBrowserRouter } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import PublicRoutes from './PublicRoutes';
@@ -22,6 +23,10 @@ const Routes = createBrowserRouter([
       {
         path: 'lessons',
         element: <Lessons />,
+      },
+      {
+        path: 'lessons/:id',
+        element: <Vocabulary />,
       },
       {
         path: 'tutorials',
