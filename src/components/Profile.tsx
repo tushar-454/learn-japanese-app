@@ -1,3 +1,4 @@
+import { useLogoutMutation } from '@/api/authSlice';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,8 +17,10 @@ interface ProfileProps {
 }
 
 const Profile = ({ isMobile }: ProfileProps) => {
+  const [logout] = useLogoutMutation();
   const { user } = useSelector<RootState, InitialAuthSlices>((state) => state.user);
   const { name, email, photo } = user || {};
+
   return (
     <div
       style={isMobile ? { justifyContent: 'start' } : {}}
@@ -42,7 +45,14 @@ const Profile = ({ isMobile }: ProfileProps) => {
           <DropdownMenuItem>
             <span className='flex cursor-pointer items-center gap-2'>
               <CiLogout />
-              <span>Logout</span>
+              <span
+                onClick={() => {
+                  logout({});
+                  window.location.href = '/login';
+                }}
+              >
+                Logout
+              </span>
             </span>
           </DropdownMenuItem>
         </DropdownMenuContent>

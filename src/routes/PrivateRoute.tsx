@@ -1,4 +1,5 @@
 import { useTokenQuery } from '@/api/authSlice';
+import Loading from '@/components/shared/Loading';
 import { useToast } from '@/hooks/use-toast';
 import { storeUser } from '@/store/slice/authSlice';
 import { AppDispatch } from '@/store/store';
@@ -27,7 +28,7 @@ const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   }, [dispatch, user, navigate, isLoading, toast]);
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   return user ? children : null;
