@@ -7,19 +7,22 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useToast } from '@/hooks/use-toast';
 import { InitialAuthSlices } from '@/store/slice/authSlice';
 import { RootState } from '@/store/store';
 import { CiLogout } from 'react-icons/ci';
 import { MdOutlineSpaceDashboard } from 'react-icons/md';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface ProfileProps {
   isMobile: boolean;
 }
 
 const Profile = ({ isMobile }: ProfileProps) => {
+  const { toast } = useToast();
   const [logout] = useLogoutMutation();
+  const navigate = useNavigate();
   const { user } = useSelector<RootState, InitialAuthSlices>((state) => state.user);
   const { name, email, photo, role } = user || {};
 
@@ -56,9 +59,15 @@ const Profile = ({ isMobile }: ProfileProps) => {
             <span className='flex cursor-pointer items-center gap-2'>
               <CiLogout />
               <span
-                onClick={() => {
-                  logout({});
-                  window.location.href = '/login';
+                onClick={async () => {
+                  const res = await logout({});
+                  if (res.data.status === 200) {
+                    toast({
+                      title: 'Logout',
+                      description: 'You have successfully logged out',
+                    });
+                    navigate('/login');
+                  }
                 }}
               >
                 Logout

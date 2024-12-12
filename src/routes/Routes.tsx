@@ -1,4 +1,5 @@
 import Root from '@/layouts/Root';
+import Lessons from '@/pages/Lessons';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
 import { createBrowserRouter } from 'react-router-dom';
@@ -19,11 +20,11 @@ const Routes = createBrowserRouter([
         element: <h1>Home</h1>,
       },
       {
-        path: '/lessons',
-        element: <h1>Home</h1>,
+        path: 'lessons',
+        element: <Lessons />,
       },
       {
-        path: '/tutorials',
+        path: 'tutorials',
         element: <h1>Home</h1>,
       },
     ],

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 const Login = () => {
   useEffect(() => {
+    document.title = 'Login - Learn Japanese';
     window.scrollTo(0, 0);
   }, []);
   return (
