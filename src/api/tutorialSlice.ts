@@ -10,8 +10,33 @@ const tutorialSlice = createApi({
     tutorials: builder.query({
       query: () => '/tutorials',
     }),
+    deleteTutorials: builder.mutation({
+      query: (id) => ({
+        url: `/admin/tutorials/${id}`,
+        method: 'DELETE',
+      }),
+    }),
+    updateTutorials: builder.mutation({
+      query: ({ id, title, description, video_url }) => ({
+        url: `/admin/tutorials/${id}`,
+        method: 'PUT',
+        body: { title, description, video_url },
+      }),
+    }),
+    createTutorials: builder.mutation({
+      query: ({ title, description, video_url }) => ({
+        url: `/admin/tutorials`,
+        method: 'POST',
+        body: { title, description, video_url },
+      }),
+    }),
   }),
 });
 
-export const { useTutorialsQuery } = tutorialSlice;
+export const {
+  useTutorialsQuery,
+  useDeleteTutorialsMutation,
+  useUpdateTutorialsMutation,
+  useCreateTutorialsMutation,
+} = tutorialSlice;
 export default tutorialSlice;

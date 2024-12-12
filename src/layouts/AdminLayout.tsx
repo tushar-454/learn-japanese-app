@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/sidebar';
 import { TypographyP } from '@/components/ui/typography';
 import { lessons, tutorials, users, vocabulary } from '@/constant/menuItems';
+import { Home } from 'lucide-react';
 import { Link, Outlet } from 'react-router-dom';
 
 const AdminLayout = () => {
@@ -31,6 +32,21 @@ const AdminLayout = () => {
           </div>
         </SidebarHeader>
         <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupLabel>Home</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <Link to={'/lessons'}>
+                      <Home />
+                      <span>Go Lessons</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
           <SidebarGroup>
             <SidebarGroupLabel>Users</SidebarGroupLabel>
             <SidebarGroupContent>

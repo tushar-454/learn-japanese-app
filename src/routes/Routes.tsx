@@ -2,8 +2,10 @@ import { TypographyH1 } from '@/components/ui/typography';
 import AdminLayout from '@/layouts/AdminLayout';
 import Root from '@/layouts/Root';
 import AdminAddLessons from '@/pages/AdminAddLessons';
+import AdminAddTutorial from '@/pages/AdminAddTutorial';
 import AdminAddVocabulary from '@/pages/AdminAddVocabulary';
 import AdminLessons from '@/pages/AdminLessons';
+import AdminTutorials from '@/pages/AdminTutorials';
 import AdminVocabulary from '@/pages/AdminVocabulary';
 import Lessons from '@/pages/Lessons';
 import Login from '@/pages/Login';
@@ -90,6 +92,14 @@ const Routes = createBrowserRouter([
       {
         path: 'add-vocabulary',
         element: <AdminAddVocabulary />,
+      },
+      {
+        path: 'tutorials',
+        element: <AdminTutorials />,
+      },
+      {
+        path: 'add-tutorial',
+        element: <AdminAddTutorial />,
       },
     ],
   },

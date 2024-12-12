@@ -83,6 +83,18 @@ const AdminVocabulary = () => {
 
   const handleUpdateVocabulary = async (id: string) => {
     const { word, pronunciation, meaning, when_to_say, lesson_no } = updateVocabulary;
+
+    if (!word || !pronunciation || !meaning || !when_to_say || !lesson_no) {
+      toast({
+        title: 'All fields are required',
+        description: `${!word ? 'Word,' : ''} ${!pronunciation ? 'Pronunciation,' : ''} ${
+          !meaning ? 'Meaning,' : ''
+        } ${!when_to_say ? 'When to say,' : ''} ${!lesson_no ? 'Lesson No,' : ''} are required`,
+        variant: 'destructive',
+      });
+      return;
+    }
+
     const { data } = await updateVocabularyData({
       id,
       word,
