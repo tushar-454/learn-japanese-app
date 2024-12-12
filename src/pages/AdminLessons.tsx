@@ -27,7 +27,7 @@ import {
 import { TypographyH3 } from '@/components/ui/typography';
 import { useToast } from '@/hooks/use-toast';
 import { useEffect, useState } from 'react';
-type LessonType = {
+export type LessonType = {
   _id: string;
   lesson_name: string;
   lesson_number: number;
@@ -47,7 +47,6 @@ const AdminLessons = () => {
   const [open, setOpen] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [lessonName, setLessonName] = useState('');
-  const [lessonNumber, setLessonNumber] = useState('');
   const [selectedId, setSelectedId] = useState('');
 
   const lessons = data?.data;
@@ -64,21 +63,14 @@ const AdminLessons = () => {
   };
 
   const handleUpdateLesson = async (id: string) => {
-    if (!lessonName || !lessonNumber) {
+    if (!lessonName) {
       toast({
-        title: 'Lesson Name and Lesson Number is required',
-      });
-      return;
-    }
-    if (isNaN(Number(lessonNumber))) {
-      toast({
-        title: 'Lesson Number must be a number',
+        title: 'Lesson Name is required',
       });
       return;
     }
     const { data } = await updateLesson({
       id,
-      lesson_number: +lessonNumber,
       lesson_name: lessonName,
     });
     if (data?.status === 200) {
@@ -141,7 +133,6 @@ const AdminLessons = () => {
                         onOpenChange={() => {
                           setOpenUpdate(!openUpdate);
                           setLessonName(lesson.lesson_name);
-                          setLessonNumber(lesson.lesson_number.toString());
                         }}
                       >
                         <DialogTrigger>
@@ -161,16 +152,6 @@ const AdminLessons = () => {
                                 value={lessonName}
                                 onChange={(e) => setLessonName(e.target.value)}
                               />
-                              <span className='my-5 block'>
-                                <Label htmlFor='lesson_number'>Lesson Number</Label>
-                                <Input
-                                  type='text'
-                                  id='lesson_number'
-                                  name='lesson_number'
-                                  value={lessonNumber}
-                                  onChange={(e) => setLessonNumber(e.target.value)}
-                                />
-                              </span>
                             </DialogDescription>
                           </DialogHeader>
                           <Button
