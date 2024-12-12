@@ -10,7 +10,9 @@ import {
 import { InitialAuthSlices } from '@/store/slice/authSlice';
 import { RootState } from '@/store/store';
 import { CiLogout } from 'react-icons/ci';
+import { MdOutlineSpaceDashboard } from 'react-icons/md';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 interface ProfileProps {
   isMobile: boolean;
@@ -19,7 +21,7 @@ interface ProfileProps {
 const Profile = ({ isMobile }: ProfileProps) => {
   const [logout] = useLogoutMutation();
   const { user } = useSelector<RootState, InitialAuthSlices>((state) => state.user);
-  const { name, email, photo } = user || {};
+  const { name, email, photo, role } = user || {};
 
   return (
     <div
@@ -42,6 +44,14 @@ const Profile = ({ isMobile }: ProfileProps) => {
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
+          {role === 'admin' && (
+            <DropdownMenuItem>
+              <span className='flex cursor-pointer items-center gap-2'>
+                <MdOutlineSpaceDashboard />
+                <Link to={'/dashboard'}>Dashboard</Link>
+              </span>
+            </DropdownMenuItem>
+          )}
           <DropdownMenuItem>
             <span className='flex cursor-pointer items-center gap-2'>
               <CiLogout />

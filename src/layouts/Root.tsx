@@ -6,7 +6,9 @@ const Root = () => {
   return (
     <main>
       <Header />
-      <Outlet />
+      <div className='h-screen'>
+        <Outlet />
+      </div>
       <Footer />
     </main>
   );
