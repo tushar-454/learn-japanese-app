@@ -112,13 +112,13 @@ const AdminLessons = () => {
                   <TableCell>
                     <span className='flex items-center gap-2'>
                       <img
-                        src={lesson.created_by.photo}
+                        src={lesson.created_by?.photo}
                         alt='photo'
                         className='size-14 rounded-full object-cover'
                       />
                       <span className='flex flex-col'>
-                        <span className='font-semibold'>{lesson.created_by.name}</span>
-                        <span>{lesson.created_by.email}</span>
+                        <span className='font-semibold'>{lesson.created_by?.name}</span>
+                        <span>{lesson.created_by?.email}</span>
                       </span>
                     </span>
                   </TableCell>

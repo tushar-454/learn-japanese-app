@@ -7,11 +7,13 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
+import { useLessonsQuery, useUpdateLessonMutation } from '@/api/lessonSlice';
 import {
   useAdminVocabularyQuery,
   useDeleteVocabularyMutation,
   useUpdateVocabularyMutation,
 } from '@/api/vocabularySlice';
+import { LessonType } from '@/components/LessonCard';
 import Loading from '@/components/shared/Loading';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -62,6 +64,8 @@ const AdminVocabulary = () => {
   const { data, isLoading, isError, refetch } = useAdminVocabularyQuery({});
   const [deleteVocabulary] = useDeleteVocabularyMutation();
   const [updateVocabularyData] = useUpdateVocabularyMutation();
+  const [updateLesson] = useUpdateLessonMutation();
+  const { data: lessonData, refetch: lessonRefetch } = useLessonsQuery({});
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
@@ -69,6 +73,7 @@ const AdminVocabulary = () => {
   const [updateVocabulary, setUpdateVocabulary] = useState<VocabularyType>(initialVocabulary);
 
   const vocabulary = data?.data;
+  const lessons = lessonData?.data;
 
   const handleDeleteVocabulary = async (id: string) => {
     const { data } = await deleteVocabulary(id);
@@ -78,6 +83,18 @@ const AdminVocabulary = () => {
       });
       setOpen(false);
       refetch();
+      const lessonNo = vocabulary?.find((item: VocabularyType) => item._id === id)?.lesson_no;
+      const lessonId = lessons?.find((item: LessonType) => item.lesson_number === lessonNo)?._id;
+      const { data } = await updateLesson({
+        id: lessonId,
+        vocabulary: +(
+          lessons?.find((item: LessonType) => item.lesson_number === lessonNo)?.vocabulary - 1
+        ),
+      });
+      if (data.status === 200) {
+        refetch();
+        lessonRefetch();
+      }
     }
   };
 

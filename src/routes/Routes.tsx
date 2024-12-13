@@ -31,7 +31,9 @@ const Routes = createBrowserRouter([
         element: (
           <TypographyH1 className='mt-10 flex flex-col space-y-4 text-center'>
             <span>Welcome To Our App</span>
-            <span>Learn Japanese Language</span>
+            <span className='inline-block bg-gradient-to-b from-primary-foreground to-primary bg-clip-text text-transparent'>
+              Learn Japanese Language
+            </span>
           </TypographyH1>
         ),
       },
@@ -73,6 +75,10 @@ const Routes = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      {
+        index: true,
+        element: <Users />,
+      },
       {
         path: 'users',
         element: <Users />,
