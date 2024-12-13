@@ -36,34 +36,34 @@ const Vocabulary = () => {
                 <VocabularyCard key={vocabulary._id} vocabulary={vocabulary} />
               ))}
             </div>
+            <div className='flex items-center justify-center gap-32'>
+              <Button
+                disabled={data?.links.prev ? false : true}
+                onClick={() => {
+                  setPage((prev) => prev - 1);
+                  setShowConfetti(false);
+                }}
+              >
+                Prev
+              </Button>
+              <Button
+                disabled={data?.links.next ? false : true}
+                onClick={() => setPage((prev) => prev + 1)}
+              >
+                Next
+              </Button>
+            </div>
+            {!data?.links.next && (
+              <div className='mt-8 flex items-center justify-center gap-32'>
+                <Button variant={'outline'} onClick={() => setShowConfetti(true)}>
+                  Completed Lesson
+                </Button>
+              </div>
+            )}
+            {showConfetti && <Confetti />}
           </>
         )}
-        <div className='flex items-center justify-center gap-32'>
-          <Button
-            disabled={data?.links.prev ? false : true}
-            onClick={() => {
-              setPage((prev) => prev - 1);
-              setShowConfetti(false);
-            }}
-          >
-            Prev
-          </Button>
-          <Button
-            disabled={data?.links.next ? false : true}
-            onClick={() => setPage((prev) => prev + 1)}
-          >
-            Next
-          </Button>
-        </div>
-        {!data?.links.next && (
-          <div className='mt-8 flex items-center justify-center gap-32'>
-            <Button variant={'outline'} onClick={() => setShowConfetti(true)}>
-              Completed Lesson
-            </Button>
-          </div>
-        )}
       </Container>
-      {showConfetti && <Confetti />}
     </div>
   );
 };
