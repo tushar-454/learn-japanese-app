@@ -13,7 +13,7 @@ import { RootState } from '@/store/store';
 import { CiLogout } from 'react-icons/ci';
 import { MdOutlineSpaceDashboard } from 'react-icons/md';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface ProfileProps {
   isMobile: boolean;
@@ -22,7 +22,6 @@ interface ProfileProps {
 const Profile = ({ isMobile }: ProfileProps) => {
   const { toast } = useToast();
   const [logout] = useLogoutMutation();
-  const navigate = useNavigate();
   const { user } = useSelector<RootState, InitialAuthSlices>((state) => state.user);
   const { name, email, photo, role } = user || {};
 
@@ -66,7 +65,7 @@ const Profile = ({ isMobile }: ProfileProps) => {
                       title: 'Logout',
                       description: 'You have successfully logged out',
                     });
-                    navigate('/login');
+                    window.location.href = '/login';
                   }
                 }}
               >

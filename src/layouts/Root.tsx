@@ -6,10 +6,10 @@ const Root = () => {
   return (
     <main>
       <Header />
-      <div className='h-screen'>
+      <div className='flex h-screen flex-col justify-between'>
         <Outlet />
+        <Footer />
       </div>
-      <Footer />
     </main>
   );
 };

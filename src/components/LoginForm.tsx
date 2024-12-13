@@ -69,7 +69,7 @@ const LoginForm = () => {
         description: 'Welcome back. ' + res.data.data.name,
       });
       dispatch(storeUser(res.data.data));
-      window.location.href = window.location.origin;
+      window.location.href = '/';
     }
   }
 

@@ -38,6 +38,15 @@ const AdminAddTutorial = () => {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     const { title, description, video_url } = data;
 
+    if (!title || !description || !video_url) {
+      return toast({
+        title: 'Please fill all fields',
+        description: `${!title ? 'Title,' : ''} ${!description ? 'Description,' : ''} ${!video_url ? 'Video ID' : ''} are required`,
+        variant: 'destructive',
+      });
+      return;
+    }
+
     const res = await createTutorial({
       title,
       description,

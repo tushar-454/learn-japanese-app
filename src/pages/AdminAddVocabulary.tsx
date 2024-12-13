@@ -147,7 +147,7 @@ const AdminAddVocabulary = () => {
       {/* table here */}
       {isLoading && <Loading />}
       {isError && (
-        <TypographyH3 className='mt-5 text-center text-red-500'>Error fetching users</TypographyH3>
+        <TypographyH3 className='mt-5 text-center text-red-500'>Error fetching Lesson</TypographyH3>
       )}
       {lessons && lessons.length > 0 && (
         <div className='mt-5 w-[1024px] overflow-x-auto lg:w-auto'>

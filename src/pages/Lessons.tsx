@@ -3,11 +3,16 @@ import LessonCard, { LessonType } from '@/components/LessonCard';
 import Container from '@/components/shared/Container';
 import Loading from '@/components/shared/Loading';
 import { TypographyH2, TypographyH3 } from '@/components/ui/typography';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const Lessons = () => {
   const { data, isLoading, isError } = useLessonsQuery({});
   const lessons = data?.data;
+  useEffect(() => {
+    document.title = 'All Lessons';
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       <Container>

@@ -90,7 +90,9 @@ const AdminTutorials = () => {
       {/* table here */}
       {isLoading && <Loading />}
       {isError && (
-        <TypographyH3 className='mt-5 text-center text-red-500'>Error fetching users</TypographyH3>
+        <TypographyH3 className='mt-5 text-center text-red-500'>
+          Error fetching tutorials
+        </TypographyH3>
       )}
       {tutorials && tutorials.length > 0 && (
         <div className='my-5 grid grid-cols-1 gap-5 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3'>

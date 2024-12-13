@@ -1,4 +1,3 @@
-import { TypographyH1 } from '@/components/ui/typography';
 import AdminLayout from '@/layouts/AdminLayout';
 import Root from '@/layouts/Root';
 import AdminAddLessons from '@/pages/AdminAddLessons';
@@ -7,6 +6,7 @@ import AdminAddVocabulary from '@/pages/AdminAddVocabulary';
 import AdminLessons from '@/pages/AdminLessons';
 import AdminTutorials from '@/pages/AdminTutorials';
 import AdminVocabulary from '@/pages/AdminVocabulary';
+import Home from '@/pages/Home';
 import Lessons from '@/pages/Lessons';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
@@ -14,6 +14,7 @@ import Tutorials from '@/pages/Tutorials';
 import Users from '@/pages/Users';
 import Vocabulary from '@/pages/Vocabulary';
 import { createBrowserRouter } from 'react-router-dom';
+import AdminRoute from './AdminRoute';
 import PrivateRoute from './PrivateRoute';
 import PublicRoutes from './PublicRoutes';
 
@@ -28,14 +29,7 @@ const Routes = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: (
-          <TypographyH1 className='mt-10 flex flex-col space-y-4 text-center'>
-            <span>Welcome To Our App</span>
-            <span className='inline-block bg-gradient-to-b from-primary-foreground to-primary bg-clip-text text-transparent'>
-              Learn Japanese Language
-            </span>
-          </TypographyH1>
-        ),
+        element: <Home />,
       },
       {
         path: 'lessons',
@@ -71,7 +65,9 @@ const Routes = createBrowserRouter([
     path: '/dashboard',
     element: (
       <PrivateRoute>
-        <AdminLayout />
+        <AdminRoute>
+          <AdminLayout />
+        </AdminRoute>
       </PrivateRoute>
     ),
     children: [
