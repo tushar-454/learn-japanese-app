@@ -4,7 +4,7 @@ import { TypographyH2 } from './ui/typography';
 
 const Footer = () => {
   return (
-    <footer className='relative mx-auto mt-20 w-full bg-secondary-foreground text-center text-white xl:mt-32'>
+    <footer className='relative mx-auto mt-20 w-full text-center xl:mt-32'>
       <div className='px-6 py-8 md:py-14 xl:pb-12 xl:pt-20'>
         <TypographyH2 className='text-3xl font-bold leading-snug xl:text-4xl'>
           "Start your journey to learning Japanese today <br /> no cost, no limits."

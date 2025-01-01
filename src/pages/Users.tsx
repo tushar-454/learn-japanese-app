@@ -44,6 +44,7 @@ const Users = () => {
   const [updateUser] = useUpdateUserMutation();
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState('');
 
   const handleDeleteUser = async (id: string) => {
     const { data } = await deleteUser(id);
@@ -115,7 +116,14 @@ const Users = () => {
                       {/* delete dialog  */}
                       <Dialog open={open} onOpenChange={setOpen}>
                         <DialogTrigger>
-                          <Button variant={'destructive'}>Delete</Button>
+                          <Button
+                            variant={'destructive'}
+                            onClick={() => {
+                              setSelectedUser(user._id);
+                            }}
+                          >
+                            Delete
+                          </Button>
                         </DialogTrigger>
                         <DialogContent>
                           <DialogHeader>
@@ -127,7 +135,7 @@ const Users = () => {
                           </DialogHeader>
                           <Button
                             variant={'destructive'}
-                            onClick={() => handleDeleteUser(user._id)}
+                            onClick={() => handleDeleteUser(selectedUser)}
                           >
                             Yes, delete
                           </Button>
